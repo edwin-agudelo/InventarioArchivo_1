@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InventarioArchivo", "InventarioArchivo\InventarioArchivo.vcxproj", "{FC82BD12-DF78-47D5-A658-C8CFC3FC6D34}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtilesInv", "UtilesInv\UtilesInv.vcxproj", "{183EF40A-F441-4848-A4ED-93695A4412B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC82BD12-DF78-47D5-A658-C8CFC3FC6D34}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FC82BD12-DF78-47D5-A658-C8CFC3FC6D34}.Debug|Win32.Build.0 = Debug|Win32
+		{FC82BD12-DF78-47D5-A658-C8CFC3FC6D34}.Release|Win32.ActiveCfg = Release|Win32
+		{FC82BD12-DF78-47D5-A658-C8CFC3FC6D34}.Release|Win32.Build.0 = Release|Win32
+		{183EF40A-F441-4848-A4ED-93695A4412B4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{183EF40A-F441-4848-A4ED-93695A4412B4}.Debug|Win32.Build.0 = Debug|Win32
+		{183EF40A-F441-4848-A4ED-93695A4412B4}.Release|Win32.ActiveCfg = Release|Win32
+		{183EF40A-F441-4848-A4ED-93695A4412B4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
