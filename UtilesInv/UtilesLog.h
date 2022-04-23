@@ -17,41 +17,20 @@ namespace UtilesInv {
 	public ref class UtilesLog
 	{
 	private:
-		TextWriterTraceListener^ log;
+		static TextWriterTraceListener^ log;
 	public:
-		UtilesLog(void){
-			String^ nombre = DirArch::defRutLog() + "\\Log_Lib_" + DateTime::Now.ToString("yyyyMMddHHmmss") + ".log";
-			log = gcnew TextWriterTraceListener(nombre);
-			//Debug::Listeners->Remove("Default");
-			Trace::Listeners->Remove("Default");
-			Trace::Listeners->Add(log);
-			Trace::WriteLine("Inicializando...");
-			Trace::WriteLine("Fecha/Hora:" + DateTime::Now.ToString("yyyyMMddHHmmss"));
-			Trace::Flush();
-		}
 
-		~UtilesLog(void){
-			Trace::WriteLine("-------------------------------------------------");
-			Trace::WriteLine("Fecha/Hora:" + DateTime::Now.ToString("yyyyMMddHHmmss"));
-			Trace::WriteLine("Finalizando");
-			Trace::Flush();
-		}
+		
+		static UtilesLog(void);
+		~UtilesLog(void);
 
 		///
 		/// Funciones que escriben algo
 		/// 1
-		void escribirLog(String^ valor){
-			Trace::WriteLine("-------------------------------------------------");
-			Trace::WriteLine(DateTime::Now.ToString("yyyyMMddHHmmss") + ":" + valor);
-			Trace::Flush();
-		}
+		static void escribirLog(String^ valor);
 
 		/// 2
-		void escribirLog(String^ proceso, String^ valor){
-			Trace::WriteLine("-------------------------------------------------");
-			Trace::WriteLine("[" + proceso + "]" + DateTime::Now.ToString("yyyyMMddHHmmss") + ":" + valor);
-			Trace::Flush();
-		}
+		static void escribirLog(String^ proceso, String^ valor);
 	};
 
 }

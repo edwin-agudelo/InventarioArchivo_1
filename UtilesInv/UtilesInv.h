@@ -4,7 +4,6 @@
 
 using namespace System;
 using namespace System::IO;
-using namespace System::Windows::Forms;
 using namespace System::Diagnostics;
 using namespace System::Collections::Generic;
 
@@ -12,10 +11,8 @@ namespace UtilesInv {
 
 	public ref class DirArch
 	{
-		// Variables importantes
 	private:
 		static Dictionary<String^,String^>^ directorios;
-		// TODO: Add your methods for this class here.
 	public:
 
 		static void initDirs(){
@@ -54,10 +51,6 @@ namespace UtilesInv {
 			bool retorno = true;
 			if(!File::Exists(directorios["rutadb"]))
 				retorno = false;
-			/*if(!File::Exists(Environment::GetFolderPath(Environment::SpecialFolder::ApplicationData) + "\\LibreriaSBI\\data\\config.sbi"))
-				retorno = false;
-			/*if(!File::Exists(Environment::GetFolderPath(Environment::SpecialFolder::ApplicationData) + "\\LibreriaSBI\\data\\libreria.db"))
-				retorno = false;*/
 			return retorno;
 		}
 
@@ -95,7 +88,7 @@ namespace UtilesInv {
 					Directory::CreateDirectory(directorios["log"]);
 				}
 			}catch(IOException^ ioex){
-				MessageBox::Show("Error creando directorios->" + ioex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("crearDirsIni", "Error creando directorios->" + ioex->Message);
 				retorno = false;
 			}
 			return retorno;
@@ -118,7 +111,7 @@ namespace UtilesInv {
 			try{
 				Directory::CreateDirectory(val);
 			}catch(IOException^ ioex){
-				MessageBox::Show("Error creando directorio [" + val + "]->" + ioex->Message, "Error",MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("CreateDirectory", "Error creando directorio [" + val + "]->" + ioex->Message);
 				return false;
 			}
 			return true;
@@ -129,7 +122,7 @@ namespace UtilesInv {
 			try{
 				Directory::Move(origen,destino);
 			}catch(IOException^ ioex){
-				MessageBox::Show("Error moviendo/renombrando [" + origen + "] hacia [" + destino + "]-> " + ioex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("moverDir", "Error moviendo/renombrando [" + origen + "] hacia [" + destino + "]-> " + ioex->Message);
 				return false;
 			}
 			return true;
@@ -140,7 +133,7 @@ namespace UtilesInv {
 			try{
 				Directory::Delete(val);
 			}catch(IOException^ ioex){
-				MessageBox::Show("Error eliminando [" + val + "] -> " + ioex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("Delete", "Error eliminando [" + val + "] -> " + ioex->Message);
 				return false;
 			}
 			return true;
@@ -151,7 +144,7 @@ namespace UtilesInv {
 			try{
 				File::Move(origen,destino);
 			}catch(IOException^ ioex){
-				MessageBox::Show("Error moviendo/renombrando [" + origen + "] hacia [" + destino + "]-> " + ioex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("Move", "Error moviendo/renombrando [" + origen + "] hacia [" + destino + "]-> " + ioex->Message);
 				return false;
 			}
 			return true;
@@ -162,7 +155,7 @@ namespace UtilesInv {
 			try{
 				File::Delete(val);
 			}catch(IOException^ ioex){
-				MessageBox::Show("Error eliminando [" + val + "] -> " + ioex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("Delete", "Error eliminando [" + val + "] -> " + ioex->Message);
 				return false;
 			}
 			return true;
@@ -176,7 +169,7 @@ namespace UtilesInv {
 				proc->StartInfo->UseShellExecute = true;
 				proc->Start();
 			}catch(Exception^ ex){
-				MessageBox::Show("Error al intentar abrir [" + val + "] -> " + ex->Message,"Error",MessageBoxButtons::OK, MessageBoxIcon::Error);
+				UtilesLog::escribirLog("abrirArch", "Error al intentar abrir [" + val + "] -> " + ex->Message);
 				return;
 			}
 		}

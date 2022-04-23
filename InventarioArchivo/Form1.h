@@ -648,16 +648,9 @@ namespace InventarioArchivo {
 				 // Valido los directorios
 				 DirArch::initDirs();
 				 if(!DirArch::testDirs()){
-					 //MessageBox::Show("Directorios validados");
-					 DirArch::creaDirsIni();//creaDirsIni
+					 DirArch::creaDirsIni();
 				 }
-				 //else {
-					 //MessageBox::Show("Directorios NO validados");
-				 // }
 
-				 // Realizo una carga de prueba
-				 //dbObj = gcnew UtilesDb("C:\\Users\\Edwin\\Documents\\Visual Studio 2005\\Ayudas\\libreria.db");
-				 //dbObj = gcnew UtilesDb(Environment::GetFolderPath(Environment::SpecialFolder::ApplicationData) + "\\LibreriaSBI\\data\\libreria.db"));
 				 dbObj = gcnew UtilesDb();
 				 if(!DirArch::testArch()){
 					 if(!dbObj->crearDb()){
@@ -678,8 +671,6 @@ namespace InventarioArchivo {
 				 }
 				 trvBiblo->Nodes->AddRange(dbObj->traerDivs());
 				 logObj = gcnew UtilesLog();
-				 //trvBiblo->Nodes->AddRange(dbObj->traerDivs());
-				 //trvBiblo->Nodes[0]->FirstNode->Nodes->AddRange(dbObj->traerDivs());
 			 }
 private: System::Void revisarDirectorioToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // Ahora debo mostrar el otro dialogo
@@ -691,10 +682,7 @@ private: System::Void revisarDirectorioToolStripMenuItem_Click(System::Object^  
 			 trvBiblo->Nodes->AddRange(dbObj->traerDivs());
 		 }
 private: System::Void trvBiblo_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e) {
-			 // Cargo la division
-			 //trvBiblo->Nodes[e->Node->Name]->Nodes->AddRange(dbObj->traerDivs(int::Parse(e->Node->Name)));
-			 //trvBiblo->Nodes->AddRange(dbObj->traerDivs((int)e->Node->Index));
-
+			 
 			 // Con esta parte tengo que traer la informacion del la seleccion
 			 if(e->Node->Name->Length > 1){
 				 int tipo = (e->Node->Name->Contains("L") ? 0:1);
@@ -763,8 +751,6 @@ private: System::Void trvBiblo_AfterSelect(System::Object^  sender, System::Wind
 			 
 		 }
 private: System::Void trvBiblo_AfterExpand(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e) {
-			 // Cargo la division
-			 //trvBiblo->Nodes->AddRange(dbObj->traerDivs((int)e->Node->Index));
 		 }
 
 private: System::Void txbBusqueda_TextChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -878,11 +864,6 @@ private: System::Void trvBiblo_DragDrop(System::Object^  sender, System::Windows
 							 MessageBox::Show("Error intentando mover el libro -> " + ex->Message,"Error",MessageBoxButtons::OK, MessageBoxIcon::Error);
 							 return;
 						 }
-						 //DestinationNode->Nodes->Add((TreeNode^)newNode->Clone());
-						 //DestinationNode->Nodes->Add((newNode->Clone()));
-						 //DestinationNode->Expand();
-						 //Remove Original Node
-						 //newNode->Remove();
 					 }
 				 }
 			 }
@@ -900,15 +881,11 @@ private: System::Void btnAddComment_Click(System::Object^  sender, System::Event
 		 }
 private: System::Void ctmLibreria_Opening(System::Object^  sender, System::ComponentModel::CancelEventArgs^  e) {
 			 // Debo identificar donde estoy
-			 //TreeNode^ elemento = (TreeNode^)((ContextMenuStrip^)sender)//->SourceControl;
-			 //TreeNode^ elemento = (TreeNode^)sender;
 			 TreeNode^ elemento = trvBiblo->SelectedNode;
-			 //MessageBox::Show("Objeto:" + elemento->Text);
 		 }
 private: System::Void tsmBorrarLibro_Click(System::Object^  sender, System::EventArgs^  e) {
 			 // 
 			 if(nodoSel != nullptr){
-				 //MessageBox::Show("Objeto:" + nodoSel->Text);
 				 if(MessageBox::Show("Desea eliminar el archivo [" + dbObj->traerDatosLib(int::Parse(nodoSel->Name->Substring(1)),0)[0] + "]","Atencion",MessageBoxButtons::YesNo,MessageBoxIcon::Question) == System::Windows::Forms::DialogResult::Yes){
 
 				 }
@@ -918,8 +895,6 @@ private: System::Void trvBiblo_MouseUp(System::Object^  sender, System::Windows:
 			 // Para detectar el elemento
 			 if(e->Button == Windows::Forms::MouseButtons::Right){
 				 Point p(e->X,e->Y);
-				 //Point pt = ((TreeView^)(sender))->PointToClient(p);
-				 //nodoSel = ((TreeView ^)(sender))->GetNodeAt(pt);
 				 nodoSel = ((TreeView ^)(sender))->GetNodeAt(p);
 				 if( nodoSel->Name->Contains("L") || nodoSel->Name->Contains("D") ){
 					 if( nodoSel->Name->Contains("L") ){
@@ -990,7 +965,6 @@ private: System::Void btnEditar_Click(System::Object^  sender, System::EventArgs
 			 dlgEdi->vObjDb = dbObj;
 			 dlgEdi->vObjLog = logObj;
 			 dlgEdi->ShowDialog();
-			 //
 			 delete dlgEdi;
 		 }
 };
