@@ -244,11 +244,8 @@ private: System::Void dgvTipos_CellContentClick(System::Object^  sender, System:
 			 txbNombre->Text = "";
 			 txbExtension->Text = "";
 			 try{
-				 //txbNombre->Text = (String^)dgvTipos[e->RowIndex,2]->Value;
 				 txbNombre->Text = (String^)dgvTipos->Rows[e->RowIndex]->Cells[2]->Value;
-				 //txbExtension->Text = (String^)dgvTipos[e->RowIndex,1]->Value;
 				 txbExtension->Text = (String^)dgvTipos->Rows[e->RowIndex]->Cells[1]->Value;
-				 //lblIdEd->Text = ((int)dgvTipos[e->RowIndex,0]->Value).ToString();
 				 lblIdEd->Text = dgvTipos->Rows[e->RowIndex]->Cells[1]->Value->ToString();
 			 }catch(Exception^ ex){
 				 MessageBox::Show("Error cargando la informacion:" + ex->Message,"Error",MessageBoxButtons::OK,MessageBoxIcon::Error);

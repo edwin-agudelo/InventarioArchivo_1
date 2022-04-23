@@ -335,8 +335,6 @@ private: System::Void bgwScaner_DoWork(System::Object^  sender, System::Componen
 			 try{
 				 dtDatos->Rows->Clear();
 				 ajustado = 0;
-				 /*maximo = 1;
-				 ProcesarDir(txbDirectorio->Text);*/
 				 DataRow^ dr = dtDatos->NewRow();
 				 dr["Nombre"] = Path::GetFileName(txbDirectorio->Text);
 				 dr["Ruta"] = txbDirectorio->Text;
@@ -359,53 +357,16 @@ private: System::Void bgwScaner_DoWork(System::Object^  sender, System::Componen
 		 }
 
 private: void ProcesarDir(String^ path){
-			 //int activos = 0;
 			 try{
-				 //Monitor::Enter(MonitorObject);
-				 /*while(!Monitor::TryEnter(MonitorObject));
-				 hilos++;
-				 Monitor::Exit(MonitorObject);
-				 while(hilos >= 10){
-					 Thread::Sleep(10);
-				 }*/
 				 DirectoryInfo^ dirInfo = gcnew DirectoryInfo((String^)path);
 				 array<DirectoryInfo^>^ dirArr = dirInfo->GetDirectories();
-				 //Dictionary<String^,Thread^>^ arrTh = gcnew Dictionary<String^,Thread^>();
+				 
 				 for(int i = 0; i < dirArr->Length ; i++){
-					 /*DataRow^ dr = dtDatos->NewRow();
-					 dr["Nombre"] = dirArr[i]->Name;
-					 dr["Ruta"] = dirArr[i]->FullName;
-					 dr["Tamano"] = (double)0;
-					 dr["Autor"] = "";
-					 dr["Editorial"] = "";
-					 dr["Tipo"] = 2;
-					 //Monitor::Enter(MonitorObject);
-					 //while(!Monitor::TryEnter(MonitorObject));
-					 dtDatos->Rows->Add(dr);
-					 //maximo = dirArr->Length;
-					 //bgwScaner->ReportProgress(1);
-					 /*Monitor::Exit(MonitorObject);
-					 Thread^ th = gcnew Thread(gcnew ParameterizedThreadStart(&ProcesarDirectorio::ProcesarDir));
-					 th->Name = dirArr[i]->Name;
-					 th->Start(dirArr[i]->FullName);
-					 arrTh->Add(dirArr[i]->Name,th);*/
-					 //activos++;
-					 //th->Join();
-					 //Thread::Sleep(20);
-					 /*while(hilos >= 50){
-						 Thread::Sleep(10);
-					 }*/
 					 ProcesarDir(dirArr[i]->FullName);
 				 }
 				 array<FileInfo^>^ fileArr = dirInfo->GetFiles();
-				 //Monitor::Enter(MonitorObject);
-				 //pgbProgreso->Maximum += fileArr->Length;
-				 //bgwScaner->ReportProgress(fileArr->Length);
-				 //Monitor::Exit(MonitorObject);
 				 maximo = fileArr->Length;
-				 //ajustado = 0;
 				 bgwScaner->ReportProgress(2);
-				 //while(ajustado == 0);
 				 for(int j = 0; j < fileArr->Length ; j++ ){
 					 DataRow^ dr = dtDatos->NewRow();
 					 dr["Nombre"] = fileArr[j]->Name;
@@ -414,28 +375,9 @@ private: void ProcesarDir(String^ path){
 					 dr["Autor"] = "";
 					 dr["Editorial"] = "";
 					 dr["Tipo"] = 1;
-					 //Monitor::Enter(MonitorObject);
-					 //while(!Monitor::TryEnter(MonitorObject));
 					 dtDatos->Rows->Add(dr);
-					 //ajustado = 0;
 					 bgwScaner->ReportProgress(3);
-					 //while(ajustado == 0);
-					 //Monitor::Exit(MonitorObject);
 				 }
-				 /*for each(KeyValuePair<String^,Thread^>^ par in arrTh){
-					 if(par->Value->ThreadState == ThreadState::Running)
-						 par->Value->Join();
-				 }*/
-				 /*while(activos > 0){
-					 for each(KeyValuePair<String^,Thread^>^ par in arrTh){
-						 if(par->Value->ThreadState != ThreadState::Running)
-							 activos--;
-					 }
-				 }*/
-				 //Monitor::Enter(MonitorObject);
-				 /*while(!Monitor::TryEnter(MonitorObject));
-				 hilos--;
-				 Monitor::Exit(MonitorObject);*/
 			 }catch(IOException^ ioex){
 				 MessageBox::Show("Error de IO->" + ioex->Message, "Error IO",MessageBoxButtons::OK, MessageBoxIcon::Error);
 				 return ;
@@ -452,7 +394,6 @@ private: int TraeNumArchi(String^ path, int recurrencia){
 				 retorno = dirInfo->GetFiles()->Length;
 				 if(recurrencia == 1){
 					 array<DirectoryInfo^>^ dirArr = dirInfo->GetDirectories();
-					 //Dictionary<String^,Thread^>^ arrTh = gcnew Dictionary<String^,Thread^>();
 					 for(int i = 0; i < dirArr->Length ; i++){
 						 DataRow^ dr = dtDatos->NewRow();
 						 dr["Nombre"] = dirArr[i]->Name;
@@ -484,10 +425,8 @@ private: System::Void ProcesarDirectorio_Load(System::Object^  sender, System::E
 			 dtDatos->Columns->Add(gcnew DataColumn("Autor",Type::GetType("System.String")));
 			 dtDatos->Columns->Add(gcnew DataColumn("Editorial",Type::GetType("System.String")));
 			 dtDatos->Columns->Add(gcnew DataColumn("Tipo",Type::GetType("System.Int32")));
-			 //dgvDatos->DataSource = dtDatos;
 		 }
 private: System::Void bgwScaner_RunWorkerCompleted(System::Object^  sender, System::ComponentModel::RunWorkerCompletedEventArgs^  e) {
-			 //bgwScaner->ReportProgress(4);
 			 stlblEstado->Text = "Preparado";
 			 dgvDatos->DataSource = dtDatos;
 			 dgvDatos->Refresh();
@@ -502,26 +441,21 @@ private: System::Void bgwScaner_ProgressChanged(System::Object^  sender, System:
 			 try{
 				 switch((int)e->ProgressPercentage){
 					 case 1:
-						 /*pgbDir1->Value = 0;
-						 pgbDir1->Maximum = maximo;
-						 pgbDir1->Step = 1;
-						 int actValor = pgbProgreso->Value;*/
 						 pgbProgreso->Value = 0;
 						 pgbProgreso->Maximum = maximo;
 						 stlblEstado->Text = "Procesando Archivos";
-						 //pgbProgreso->Value = actValor;
-						 //ajustado = 1;
-				 
+						 break;
 					 case 2:
 						 pgbDir1->Value = 0;
 						 pgbDir1->Maximum = maximo;
 						 pgbDir1->Step = 1;
+						 break;
 					 case 4:
 						 stlblEstado->Text = "Preparado";
 					 default:
 						 pgbDir1->PerformStep();
 						 pgbProgreso->PerformStep();
-						 //ajustado = 1;
+						 break;
 				 }
 			 }catch(Exception^ ex){
 				 MessageBox::Show("Error en el proceso->" + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -541,7 +475,6 @@ private: System::Void btnCargar_Click(System::Object^  sender, System::EventArgs
 		 }
 private: System::Void bgwLoader_DoWork(System::Object^  sender, System::ComponentModel::DoWorkEventArgs^  e) {
 			 // Debo iniciar el proceso de carga a la BD
-			 //UtilesDb^ dbase = gcnew UtilesInv::UtilesDb("C:\\Users\\Edwin\\Documents\\Visual Studio 2005\\Ayudas\\libreria.db");
 			 Dictionary<String^,int>^ dtipos = dbase->getFTypes();
 			 Dictionary<String^,int>^ deditores = dbase->getFEditors();
 			 int divAct = 0;
@@ -593,8 +526,6 @@ private: System::Void bgwLoader_DoWork(System::Object^  sender, System::Componen
 								 resultados[3]++;
 							 else
 								 resultados[4]++;
-							 /*if(libAct == 450 )
-								 MessageBox::Show("Ojo");*/
 						 }
 						 else
 							 resultados[6]++;

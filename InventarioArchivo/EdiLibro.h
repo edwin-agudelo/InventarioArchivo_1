@@ -389,8 +389,6 @@ private: System::Void btnGuardar_Click(System::Object^  sender, System::EventArg
 				 nombre = txbNombre->Text->Trim() + " - " +  txbEditorial->Text->Trim() + " - " + txbAutor->Text->Trim() + " - " + txbIsbn->Text->Trim();
 				 ruta = Path::GetDirectoryName(datosBd[5]) + "\\" + nombre;
 				 MessageBox::Show("La ruta que quedo>" + ruta);
-				 //DirArch::moverArch(datosBd[5] + "\\" + datosBd[0],ruta);
-				 //objDb->moverDirectorio
 			 }
 			 else{
 				 return;
